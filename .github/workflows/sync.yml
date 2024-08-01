@@ -25,10 +25,10 @@ jobs:
           git fetch upstream
       - name: Merge upstream changes
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.PAT_TOKEN }}
           GH_REPO: ${{ github.repository }}
         run: |
-          git checkout -b chore/update-sqlite3-upstream
+          git checkout -b chore/update-sqlite3-upstream main
           git push --set-upstream origin chore/update-sqlite3-upstream
           lines=$( git diff main..upstream/main -- . ':(exclude).github/**' | wc -l )
           echo "Number of detected line changes: $lines"
