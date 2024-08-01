@@ -24,8 +24,9 @@ jobs:
           EXIT_CODE=$?
 
           if [[ $EXIT_CODE == '0' ]]; then
-            echo "Git branch '$BRANCH' exists in the remote repository"
-            exit 1
+            echo "Git branch '$BRANCH' exists in the remote repository, Skipping workflow..."
+            gh run cancel ${{ github.run_id }}
+            gh run watch ${{ github.run_id }}
           fi
       - name: Set config
         run: |
