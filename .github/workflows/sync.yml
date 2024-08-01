@@ -9,6 +9,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+      actions: write
     env:
       GH_TOKEN: ${{ github.token }}
       GH_REPO: ${{ github.repository }}
@@ -33,6 +34,6 @@ jobs:
           if [ $lines -gt 0 ]; then
             git merge upstream/main
             git merge --no-edit upstream/main
-            git push origin chore/update-sqlite3-upstream
+            git push
             gh pr create --title "chore: update sqlite3 upstream" --body "This PR updates the upstream branch to the latest changes from the original repository." --base main --head chore/update-sqlite3-upstream
           fi
