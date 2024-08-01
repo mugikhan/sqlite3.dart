@@ -19,11 +19,14 @@ jobs:
       - name: Check if branch exists
         id: check-branch
         run: |
-          branch_name="chore/update-sqlite3-upstream"
-          if [ `git branch --list $branch_name` ]
-          then
-            echo "Branch already exists"
-            exit 1
+          BRANCH="chore/update-sqlite3-upstream"
+          git ls-remote --exit-code --heads origin $BRANCH >/dev/null 2>&1
+          EXIT_CODE=$?
+
+          if [[ $EXIT_CODE == '0' ]]; then
+            echo "Git branch '$BRANCH' exists in the remote repository"
+          elif [[ $EXIT_CODE == '2' ]]; then
+            echo "Git branch '$BRANCH' does not exist in the remote repository"
           fi
       - name: Set config
         run: |
