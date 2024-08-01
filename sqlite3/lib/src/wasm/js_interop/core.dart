@@ -8,14 +8,16 @@ external JSBigInt _bigInt(JSAny? s);
 @JS('Number')
 external JSNumber _number(JSAny? obj);
 
-@JS('Object')
-extension type WrappedJSObject._(JSObject _) implements JSObject {
-  external WrappedJSObject(JSBigInt _);
-
+extension type WrappedJSAny._(JSAny _) implements JSAny {
   external static JSArray<JSAny?> keys(JSObject o);
 
   @JS('toString')
   external JSString _toString();
+}
+
+@JS('Object')
+extension type WrappedJSObject._(JSObject _) implements JSObject {
+  external static JSArray<JSAny?> keys(JSObject o);
 }
 
 extension type JsBigInt(JSBigInt _jsBigInt) implements JSBigInt {
@@ -33,10 +35,8 @@ extension type JsBigInt(JSBigInt _jsBigInt) implements JSBigInt {
     const maxSafeInteger = 9007199254740992;
     const minSafeInteger = -maxSafeInteger;
 
-    // These should use toDart instead of as bool after
-    //  https://github.com/dart-lang/sdk/issues/55024
-    return minSafeInteger.toJS.lessThanOrEqualTo(_jsBigInt) as bool &&
-        _jsBigInt.lessThanOrEqualTo(maxSafeInteger.toJS) as bool;
+    return minSafeInteger.toJS.lessThanOrEqualTo(_jsBigInt).toDart &&
+        _jsBigInt.lessThanOrEqualTo(maxSafeInteger.toJS).toDart;
   }
 
   Object toDart() {
@@ -44,7 +44,7 @@ extension type JsBigInt(JSBigInt _jsBigInt) implements JSBigInt {
   }
 
   String jsToString() {
-    return (WrappedJSObject(_jsBigInt))._toString().toDart;
+    return (_jsBigInt as WrappedJSAny)._toString().toDart;
   }
 }
 
