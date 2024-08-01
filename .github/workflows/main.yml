@@ -120,11 +120,8 @@ jobs:
     needs: [analyze]
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-11, macos-12]
-#        dart: [stable, dev]
-        # Testing on Dart dev is currently disabled because it crashes on macOS,
-        # see https://github.com/dart-lang/sdk/issues/53928
-        dart: [stable]
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        dart: [stable, dev]
 
     name: Unit tests with Dart ${{ matrix.dart }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
@@ -179,7 +176,7 @@ jobs:
 
     - name: Web tests
       run: |
-        curl https://storage.googleapis.com/simon-public-euw3/assets/sqlite3/wasm/2.3.0/sqlite3.wasm -o example/web/sqlite3.wasm
+        curl https://storage.googleapis.com/simon-public-euw3/assets/sqlite3/wasm/2.4.3/sqlite3.wasm -o example/web/sqlite3.wasm
         dart test -P web -r expanded
       # If browsers behave differently on different platforms, surely that's not our fault...
       # So, only run browser tests on Linux to be faster.

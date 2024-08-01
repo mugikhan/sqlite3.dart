@@ -1,3 +1,12 @@
+## 0.5.24
+
+- Enable the [dbstat](https://www.sqlite.org/dbstat.html) compile-time option.
+
+## 0.5.23
+
+- Enable extension loading on Windows and Linux to match the compile options
+  used on other platforms.
+
 ## 0.5.22
 
 - Upgrade sqlite to version `3.46.0`.
@@ -41,7 +50,6 @@
 ## 0.5.12
 
 - Upgrade sqlite to version `3.40.0`.
-
 
 ## 0.5.11+1
 
