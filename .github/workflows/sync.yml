@@ -25,7 +25,7 @@ jobs:
           BRANCH_NAME="chore/update-sqlite3-upstream"
 
           if git ls-remote --heads origin ${BRANCH_NAME} | grep ${BRANCH_NAME}; then
-            echo "Git branch '$BRANCH' exists in the remote repository, Cancelling workflow..."
+            echo "Git branch '$BRANCH_NAME' exists in the remote repository, Cancelling workflow..."
             gh run cancel ${{ github.run_id }}
             gh run watch ${{ github.run_id }}
           fi
