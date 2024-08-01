@@ -1,7 +1,7 @@
 name: sync-fork
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "*/2 * * * *"
   workflow_dispatch:
 jobs:
   sync:
@@ -16,10 +16,19 @@ jobs:
           ref: main
           fetch-depth: "0"
           token: ${{ secrets.PAT_TOKEN }}
+      - name: Check if branch exists
+        id: check-branch
+        run: |
+          branch_name="chore/update-sqlite3-upstream"
+          if [ `git branch --list $branch_name` ]
+          then
+            echo "Branch already exists"
+            exit 1
+          fi
       - name: Set config
         run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
+          git config --global user.name github-actions
+          git config --global user.email github-actions@github.com
       - name: Fetch upstream
         run: |
           git remote add upstream https://github.com/simolus3/sqlite3.dart.git
