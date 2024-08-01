@@ -15,6 +15,7 @@ jobs:
         with:
           ref: main
           fetch-depth: "0"
+          token: ${{ secrets.PAT_TOKEN }}
       - name: Set config
         run: |
           git config user.name github-actions
@@ -25,7 +26,7 @@ jobs:
           git fetch upstream
       - name: Merge upstream changes
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.PAT_TOKEN }}
           GH_REPO: ${{ github.repository }}
         run: |
           git checkout -b chore/update-sqlite3-upstream main
