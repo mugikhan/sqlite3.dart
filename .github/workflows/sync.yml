@@ -25,7 +25,7 @@ jobs:
           git fetch upstream
       - name: Merge upstream changes
         env:
-          GH_TOKEN: ${{ secrets.PAT_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: |
           git checkout -b chore/update-sqlite3-upstream main
