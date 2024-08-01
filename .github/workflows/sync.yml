@@ -8,14 +8,14 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
     steps:
       - uses: actions/checkout@v3
         with:
           ref: main
       - name: Merge upstream changes
-        env:
-          GH_TOKEN: ${{ github.token }}
-          GH_REPO: ${{ github.repository }}
         run: |
           git config --global user.name 'continuous-integration'
           git config --global user.email 'username@users.noreply.github.com'
