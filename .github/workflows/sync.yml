@@ -24,7 +24,7 @@ jobs:
         run: |
           BRANCH_NAME="chore/update-sqlite3-upstream"
 
-          if [ "git branch --list ${BRANCH_NAME}" ] then
+          if [ "git branch --list ${BRANCH_NAME}" ]; then
             echo "Git branch '$BRANCH' exists in the remote repository, Cancelling workflow..."
             gh run cancel ${{ github.run_id }}
             gh run watch ${{ github.run_id }}
