@@ -22,11 +22,9 @@ jobs:
       - name: Check if branch exists
         id: check-branch
         run: |
-          BRANCH="chore/update-sqlite3-upstream"
-          git ls-remote --exit-code --heads origin $BRANCH >/dev/null 2>&1
-          EXIT_CODE=$?
+          BRANCH_NAME="chore/update-sqlite3-upstream"
 
-          if [[ $EXIT_CODE == '0' ]]; then
+          if git rev-parse --verify $BRANCH_NAME > /dev/null 2>&1; then
             echo "Git branch '$BRANCH' exists in the remote repository, Cancelling workflow..."
             gh run cancel ${{ github.run_id }}
             gh run watch ${{ github.run_id }}
