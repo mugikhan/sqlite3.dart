@@ -25,8 +25,7 @@ jobs:
 
           if [[ $EXIT_CODE == '0' ]]; then
             echo "Git branch '$BRANCH' exists in the remote repository"
-          elif [[ $EXIT_CODE == '2' ]]; then
-            echo "Git branch '$BRANCH' does not exist in the remote repository"
+            exit 1
           fi
       - name: Set config
         run: |
