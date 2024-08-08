@@ -106,6 +106,8 @@ abstract base class RawSqliteDatabase {
 
   int sqlite3_db_config(int op, int value);
   int sqlite3_get_autocommit();
+
+  int sqlite3_limit(int id, int newVal);
 }
 
 /// A stateful wrapper around multiple `sqlite3_prepare` invocations.
