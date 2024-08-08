@@ -108,6 +108,7 @@ abstract base class RawSqliteDatabase {
   int sqlite3_get_autocommit();
 
   int sqlite3_limit(int id, int newVal);
+  int sqlite3_busy_timeout(int ms);
 }
 
 /// A stateful wrapper around multiple `sqlite3_prepare` invocations.
